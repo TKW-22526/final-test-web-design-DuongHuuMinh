@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm | Shop Hữu Minh</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/main.js"></script>
+
+    <style>
+        .detail-container {
+            display: flex;
+            gap: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 0 auto; /* Tự động căn giữa màn hình */
+        }
+        
+        /* CỘT TRÁI (CHỨA ẢNH) */
+        .detail-left {
+            flex: 1; /* Chiếm 1 phần không gian */
+        }
+        .detail-left img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            object-fit: contain;
+        }
+
+        /* CỘT PHẢI (CHỨA THÔNG TIN) */
+        .detail-right {
+            flex: 1.5; /* Chiếm 1.5 phần (to hơn cột trái một chút) */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .detail-right h2 { color: #2c3e50; font-size: 32px; margin-top: 0; margin-bottom: 10px;}
+        .detail-right .price { color: #e74c3c; font-size: 24px; font-weight: bold; margin-bottom: 20px;}
+        
+        /* Hộp xám chứa cấu hình */
+        .specs-box {
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 25px;
+            border: 1px solid #e0e0e0;
+        }
+        .specs-box p { margin: 10px 0; font-size: 16px; color: #333; line-height: 1.5;}
+    </style>
+</head>
+<body style="background-color: #f4f7f6; padding: 20px; font-family: Arial, sans-serif;">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #2c3e50; margin-bottom: 20px;">CHI TIẾT SẢN PHẨM</h1>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <a href="index.html" style="padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                ⬅ Quay lại Trang chủ
+            </a>
+            <a href="cart.html" style="padding: 10px 20px; background-color: #e74c3c; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                🛒 Đi đến Giỏ hàng
+            </a>
+        </div>
+    </div>
+
+    <div id="product-detail-content"></div>
+
+    <script>
+        // 1. TÓM LẤY CÁI ID TỪ TRÊN ĐƯỜNG LINK (URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id'); // Lấy ra được số "01", "02"...
+
+        // 2. KHO THÔNG TIN BỔ SUNG (Bổ sung cấu hình và ngày sản xuất)
+        const thongTinThem = {
+            "01": { ngaySX: "Tháng 9/2023", cauHinh: "Chip A17 Pro, RAM 8GB, Bộ nhớ 256GB, Camera 48MP" },
+            "02": { ngaySX: "Tháng 1/2024", cauHinh: "Snapdragon 8 Gen 3, RAM 12GB, Bộ nhớ 256GB, Bút S-Pen" },
+            "03": { ngaySX: "Năm 2010", cauHinh: "Bàn phím vật lý T9, Pin chờ 1 tháng, Siêu bền chống va đập" },
+            "04": { ngaySX: "Tháng 11/2023", cauHinh: "Dimensity 8200, RAM 8GB, Màn hình AMOLED 120Hz, Sạc 67W" }
+        };
+
+        // 3. TÌM KIẾM SẢN PHẨM TRONG KHO (productList được gọi từ lib5.js)
+        const product = productList.find(sp => sp.id === productId);
+        const detailContent = document.getElementById('product-detail-content');
+
+        if (product) {
+            // Nếu tìm thấy, lấy thông tin cấu hình tương ứng (nếu không có thì để mặc định)
+            const info = thongTinThem[product.id] || { ngaySX: "Đang cập nhật", cauHinh: "Đang cập nhật" };
+
+            // 4. IN RA MÀN HÌNH BẰNG HTML
+            detailContent.innerHTML = `
+                <div class="detail-container">
+                    
+                    <div class="detail-left">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+
+                    <div class="detail-right">
+                        <h2>${product.name}</h2>
+                        <p class="price">Giá: ${product.price}</p>
+                        
+                        <div class="specs-box">
+                            <p>🗓️ <b>Ngày sản xuất:</b> ${info.ngaySX}</p>
+                            <p>⚙️ <b>Cấu hình chi tiết:</b> ${info.cauHinh}</p>
+                            <p>📦 <b>Tình trạng:</b> Mới 100%, nguyên seal, chính hãng</p>
+                            <p>🛡️ <b>Bảo hành:</b> 12 tháng tại Shop Hữu Minh</p>
+                        </div>
+
+                        <button onclick="luuVaoGioHang('${product.id}', '${product.name}', '${product.price}', '${product.image}')" 
+                                style="padding: 15px; background-color: #2980b9; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s;">
+                            ➕ THÊM VÀO GIỎ HÀNG
+                        </button>
+                    </div>
+                </div>
+            `;
+        } else {
+            // Nếu khách hàng lỡ gõ sai link (ví dụ ?id=99) thì báo lỗi
+            detailContent.innerHTML = "<h2 style='text-align:center; color:#e74c3c; margin-top: 50px;'>⚠️ KHÔNG TÌM THẤY SẢN PHẨM!</h2>";
+        }
+    </script>
+</body>
+</html>

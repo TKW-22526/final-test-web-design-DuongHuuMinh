@@ -38,7 +38,9 @@ function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
     const productLink = document.createElement("a");
     const productLinkText = document.createTextNode("Xem chi tiết");
     productLink.appendChild(productLinkText);
-    productLink.setAttribute("href", linkXemChiTiet);
+    
+    productLink.setAttribute("href", linkXemChiTiet + "?id=" + maMay);
+    
     productLink.setAttribute("target", "_blank");
     productLink.style.display = "block";
     productLink.style.marginBottom = "10px";
