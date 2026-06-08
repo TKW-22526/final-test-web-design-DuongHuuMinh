@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm | Shop Hữu Minh</title>
+    <link href="../css/style.css" rel="stylesheet">
+    <script src="../js/main.js"></script>
+
+    <style>
+        .detail-container {
+            display: flex;
+            gap: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 0 auto; /* Tự động căn giữa màn hình */
+        }
+        
+        /* CỘT TRÁI (CHỨA ẢNH) */
+        .detail-left {
+            flex: 1; /* Chiếm 1 phần không gian */
+        }
+        .detail-left img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            object-fit: contain;
+        }
+
+        /* CỘT PHẢI (CHỨA THÔNG TIN) */
+        .detail-right {
+            flex: 1.5; /* Chiếm 1.5 phần (to hơn cột trái một chút) */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .detail-right h2 { color: #2c3e50; font-size: 32px; margin-top: 0; margin-bottom: 10px;}
+        .detail-right .price { color: #e74c3c; font-size: 24px; font-weight: bold; margin-bottom: 20px;}
+        
+        /* Hộp xám chứa cấu hình */
+        .specs-box {
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 25px;
+            border: 1px solid #e0e0e0;
+        }
+        .specs-box p { margin: 10px 0; font-size: 16px; color: #333; line-height: 1.5;}
+    </style>
+</head>
+<body style="background-color: #f4f7f6; padding: 20px; font-family: Arial, sans-serif;">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #2c3e50; margin-bottom: 20px;">CHI TIẾT SẢN PHẨM</h1>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <a href="../index.html" style="padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                ⬅ Quay lại Trang chủ
+            </a>
+            <a href="cart.html" style="padding: 10px 20px; background-color: #e74c3c; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                🛒 Đi đến Giỏ hàng
+            </a>
+        </div>
+    </div>
+
+    <div id="product-detail-content"></div>
+
+    <script>
+        // 1. TÓM LẤY CÁI ID TỪ TRÊN ĐƯỜNG LINK (URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id'); // Lấy ra được số "01", "02"...
+        const from = urlParams.get('from');
+        // 2. KHO THÔNG TIN BỔ SUNG (Bổ sung cấu hình và ngày sản xuất)
+// 2. KHO THÔNG TIN BỔ SUNG (Đã được chuẩn hóa chuyên nghiệp cho 40 sản phẩm)
+        const thongTinThem = {
+            // ================= DÒNG IPHONE =================
+            "01": { ngaySX: "Tháng 09/2023", cauHinh: "Apple A17 Pro 6 nhân | RAM 8GB | ROM 256GB | OLED 6.7 inch | Camera 48MP" },
+            "02": { ngaySX: "Tháng 09/2023", cauHinh: "Apple A17 Pro 6 nhân | RAM 8GB | ROM 128GB | OLED 6.1 inch | Camera 48MP" },
+            "03": { ngaySX: "Tháng 09/2023", cauHinh: "Apple A16 Bionic 6 nhân | RAM 6GB | ROM 128GB | OLED 6.1 inch | Camera 48MP" },
+            "04": { ngaySX: "Tháng 09/2022", cauHinh: "Apple A16 Bionic 6 nhân | RAM 6GB | ROM 256GB | OLED 6.7 inch | Camera 48MP" },
+            "05": { ngaySX: "Tháng 09/2022", cauHinh: "Apple A16 Bionic 6 nhân | RAM 6GB | ROM 128GB | OLED 6.1 inch | Camera 48MP" },
+            "06": { ngaySX: "Tháng 09/2022", cauHinh: "Apple A15 Bionic 6 nhân | RAM 6GB | ROM 128GB | OLED 6.1 inch | Camera 12MP" },
+            "07": { ngaySX: "Tháng 09/2021", cauHinh: "Apple A15 Bionic 6 nhân | RAM 6GB | ROM 128GB | OLED 6.7 inch | Camera 12MP" },
+            "08": { ngaySX: "Tháng 09/2021", cauHinh: "Apple A15 Bionic 6 nhân | RAM 4GB | ROM 128GB | OLED 6.1 inch | Camera 12MP" },
+            "09": { ngaySX: "Tháng 10/2020", cauHinh: "Apple A14 Bionic 6 nhân | RAM 4GB | ROM 64GB | OLED 6.1 inch | Camera 12MP" },
+            "10": { ngaySX: "Tháng 09/2019", cauHinh: "Apple A13 Bionic 6 nhân | RAM 4GB | ROM 64GB | LCD 6.1 inch | Camera 12MP" },
+
+            // ================= DÒNG SAMSUNG =================
+            "11": { ngaySX: "Tháng 01/2024", cauHinh: "Snapdragon 8 Gen 3 for Galaxy | RAM 12GB | ROM 256GB | AMOLED 6.8 inch | Hỗ trợ S-Pen" },
+            "12": { ngaySX: "Tháng 01/2024", cauHinh: "Exynos 2400 | RAM 12GB | ROM 256GB | AMOLED 6.7 inch | Camera 50MP" },
+            "13": { ngaySX: "Tháng 01/2024", cauHinh: "Exynos 2400 | RAM 8GB | ROM 256GB | AMOLED 6.2 inch | Camera 50MP" },
+            "14": { ngaySX: "Tháng 07/2023", cauHinh: "Snapdragon 8 Gen 2 for Galaxy | RAM 12GB | ROM 256GB | AMOLED 7.6 inch | Camera 50MP" },
+            "15": { ngaySX: "Tháng 07/2023", cauHinh: "Snapdragon 8 Gen 2 for Galaxy | RAM 8GB | ROM 256GB | AMOLED 6.7 inch | Camera 12MP" },
+            "16": { ngaySX: "Tháng 02/2023", cauHinh: "Snapdragon 8 Gen 2 for Galaxy | RAM 8GB | ROM 256GB | AMOLED 6.8 inch | Camera 200MP" },
+            "17": { ngaySX: "Tháng 03/2024", cauHinh: "Exynos 1480 | RAM 8GB | ROM 128GB | Super AMOLED 6.6 inch | Camera 50MP" },
+            "18": { ngaySX: "Tháng 03/2024", cauHinh: "Exynos 1380 | RAM 8GB | ROM 128GB | Super AMOLED 6.6 inch | Camera 50MP" },
+            "19": { ngaySX: "Tháng 03/2023", cauHinh: "Exynos 1380 | RAM 8GB | ROM 256GB | Super AMOLED Plus 6.7 inch | Camera 108MP" },
+            "20": { ngaySX: "Tháng 01/2022", cauHinh: "Exynos 2100 | RAM 8GB | ROM 128GB | Dynamic AMOLED 2X 6.4 inch | Camera 12MP" },
+
+            // ================= DÒNG NOKIA =================
+            "21": { ngaySX: "Tháng 03/2010", cauHinh: "Bàn phím T9 | Màn hình đơn sắc 1.36 inch | Pin 800 mAh | Siêu bền, chống va đập" },
+            "22": { ngaySX: "Tháng 09/2022", cauHinh: "Snapdragon 695 5G | RAM 8GB | ROM 256GB | AMOLED 6.43 inch | Camera 50MP" },
+            "23": { ngaySX: "Tháng 02/2023", cauHinh: "Unisoc T606 | RAM 4GB | ROM 128GB | LCD 6.5 inch | Pin 5050 mAh" },
+            "24": { ngaySX: "Tháng 02/2023", cauHinh: "Unisoc SC9863A | RAM 3GB | ROM 64GB | LCD 6.5 inch | Pin 5000 mAh" },
+            "25": { ngaySX: "Tháng 06/2022", cauHinh: "Unisoc T606 | RAM 3GB | ROM 32GB | LCD 6.52 inch | Pin 5000 mAh" },
+            "26": { ngaySX: "Tháng 02/2022", cauHinh: "Unisoc SC9863A | RAM 3GB | ROM 32GB | LCD 6.52 inch | Pin 5050 mAh" },
+            "27": { ngaySX: "Tháng 07/2022", cauHinh: "Bàn phím T9 | Màn hình 2.8 inch | ROM 128MB | Hỗ trợ mạng 4G" },
+            "28": { ngaySX: "Tháng 02/2017", cauHinh: "Bàn phím T9 | Màn hình 2.4 inch | Pin 1200 mAh | Thiết kế huyền thoại" },
+            "29": { ngaySX: "Tháng 07/2020", cauHinh: "Bàn phím T9 | Màn hình 2.4 inch | Pin 1150 mAh | Hỗ trợ mạng 4G VoLTE" },
+            "30": { ngaySX: "Tháng 06/2021", cauHinh: "Bàn phím T9 | Màn hình 1.8 inch | Pin 1020 mAh | Hỗ trợ mạng 4G VoLTE" },
+
+            // ================= DÒNG OPPO =================
+            "31": { ngaySX: "Tháng 10/2023", cauHinh: "Snapdragon 8 Gen 2 | RAM 16GB | ROM 512GB | AMOLED 7.82 inch | Camera 48MP" },
+            "32": { ngaySX: "Tháng 08/2023", cauHinh: "Dimensity 9200 | RAM 12GB | ROM 256GB | AMOLED 6.8 inch | Camera 50MP" },
+            "33": { ngaySX: "Tháng 01/2024", cauHinh: "Dimensity 8200 | RAM 12GB | ROM 512GB | AMOLED 6.7 inch | Camera 50MP" },
+            "34": { ngaySX: "Tháng 01/2024", cauHinh: "Dimensity 7050 | RAM 8GB | ROM 256GB | AMOLED 6.7 inch | Camera 50MP" },
+            "35": { ngaySX: "Tháng 07/2023", cauHinh: "Dimensity 7050 | RAM 8GB | ROM 256GB | AMOLED 6.7 inch | Camera 64MP" },
+            "36": { ngaySX: "Tháng 05/2023", cauHinh: "Snapdragon 695 5G | RAM 8GB | ROM 256GB | LCD 6.72 inch | Camera 64MP" },
+            "37": { ngaySX: "Tháng 07/2023", cauHinh: "Snapdragon 680 | RAM 8GB | ROM 256GB | AMOLED 6.43 inch | Camera 50MP" },
+            "38": { ngaySX: "Tháng 07/2023", cauHinh: "MediaTek Helio G85 | RAM 6GB | ROM 128GB | LCD 6.72 inch | Camera 50MP" },
+            "39": { ngaySX: "Tháng 09/2023", cauHinh: "MediaTek Helio G85 | RAM 4GB | ROM 128GB | LCD 6.56 inch | Camera 50MP" },
+            "40": { ngaySX: "Tháng 09/2023", cauHinh: "MediaTek Helio G85 | RAM 4GB | ROM 64GB | LCD 6.56 inch | Camera 8MP" },
+
+            // ================= DÒNG XIAOMI =================
+            "41": { ngaySX: "Tháng 02/2024", cauHinh: "Snapdragon 8 Gen 3 | RAM 16GB | ROM 512GB | AMOLED 6.73 inch | Camera LEICA 50MP" },
+            "42": { ngaySX: "Tháng 10/2023", cauHinh: "Snapdragon 8 Gen 3 | RAM 12GB | ROM 256GB | OLED 6.36 inch | Camera LEICA 50MP" },
+            "43": { ngaySX: "Tháng 09/2023", cauHinh: "Dimensity 9200+ | RAM 12GB | ROM 512GB | AMOLED 6.67 inch | Camera LEICA 50MP" },
+            "44": { ngaySX: "Tháng 09/2023", cauHinh: "Dimensity 8200-Ultra | RAM 8GB | ROM 256GB | AMOLED 6.67 inch | Camera 50MP" },
+            "45": { ngaySX: "Tháng 09/2023", cauHinh: "Dimensity 7200-Ultra | RAM 8GB | ROM 256GB | AMOLED 6.67 inch | Camera 200MP" },
+            "46": { ngaySX: "Tháng 09/2023", cauHinh: "Helio G99-Ultra | RAM 8GB | ROM 128GB | AMOLED 6.67 inch | Camera 200MP" },
+            "47": { ngaySX: "Tháng 06/2024", cauHinh: "Snapdragon 685 | RAM 8GB | ROM 128GB | LCD 6.79 inch | Camera 108MP" },
+            "48": { ngaySX: "Tháng 06/2023", cauHinh: "Helio G88 | RAM 4GB | ROM 128GB | LCD 6.79 inch | Camera 50MP" },
+            "49": { ngaySX: "Tháng 01/2024", cauHinh: "Dimensity 8300-Ultra | RAM 8GB | ROM 256GB | AMOLED 6.67 inch | Camera 64MP" },
+            "50": { ngaySX: "Tháng 01/2024", cauHinh: "Helio G99-Ultra | RAM 8GB | ROM 256GB | AMOLED 6.67 inch | Camera 64MP" },
+
+            // ================= DÒNG VIVO =================
+            "51": { ngaySX: "Tháng 11/2023", cauHinh: "Dimensity 9300 | RAM 16GB | ROM 512GB | AMOLED 6.78 inch | Camera ZEISS 50MP" },
+            "52": { ngaySX: "Tháng 11/2023", cauHinh: "Dimensity 9300 | RAM 12GB | ROM 256GB | AMOLED 6.78 inch | Camera ZEISS 50MP" },
+            "53": { ngaySX: "Tháng 02/2024", cauHinh: "Snapdragon 7 Gen 3 | RAM 12GB | ROM 256GB | AMOLED 6.78 inch | Camera 50MP" },
+            "54": { ngaySX: "Tháng 05/2024", cauHinh: "Snapdragon 6 Gen 1 | RAM 8GB | ROM 256GB | AMOLED 6.78 inch | Camera 50MP" },
+            "55": { ngaySX: "Tháng 08/2023", cauHinh: "Snapdragon 778G | RAM 8GB | ROM 256GB | AMOLED 6.78 inch | Camera 50MP" },
+            "56": { ngaySX: "Tháng 08/2023", cauHinh: "Snapdragon 695 5G | RAM 8GB | ROM 256GB | AMOLED 6.78 inch | Camera 64MP" },
+            "57": { ngaySX: "Tháng 10/2023", cauHinh: "Snapdragon 685 | RAM 8GB | ROM 256GB | AMOLED 6.67 inch | Camera 50MP" },
+            "58": { ngaySX: "Tháng 05/2023", cauHinh: "Snapdragon 680 | RAM 8GB | ROM 128GB | LCD 6.64 inch | Camera 50MP" },
+            "59": { ngaySX: "Tháng 09/2023", cauHinh: "Helio G85 | RAM 4GB | ROM 64GB | LCD 6.56 inch | Camera 50MP" },
+            "60": { ngaySX: "Tháng 03/2024", cauHinh: "Helio G85 | RAM 4GB | ROM 64GB | LCD 6.56 inch | Camera 13MP" }
+        };
+
+        // 3. TÌM KIẾM SẢN PHẨM TRONG KHO (productList được gọi từ main.js)
+        const product = productList.find(sp => sp.id === productId);
+        const detailContent = document.getElementById('product-detail-content');
+
+        if (product) {
+            // Nếu tìm thấy, lấy thông tin cấu hình tương ứng (nếu không có thì để mặc định)
+            const info = thongTinThem[product.id] || { ngaySX: "Đang cập nhật", cauHinh: "Đang cập nhật" };
+
+            // 4. IN RA MÀN HÌNH BẰNG HTML
+            detailContent.innerHTML = `
+                <div class="detail-container">
+                    
+                    <div class="detail-left">
+                        <img src="../${product.image}" alt="${product.name}">
+                    </div>
+
+                    <div class="detail-right">
+                        <h2>${product.name}</h2>
+                        <p class="price">Giá: ${product.price}</p>
+                        
+                        <div class="specs-box">
+                            <p>🗓️ <b>Ngày sản xuất:</b> ${info.ngaySX}</p>
+                            <p>⚙️ <b>Cấu hình chi tiết:</b> ${info.cauHinh}</p>
+                            <p>📦 <b>Tình trạng:</b> Mới 100%, nguyên seal, chính hãng</p>
+                            <p>🛡️ <b>Bảo hành:</b> 12 tháng tại Shop Hữu Minh</p>
+                        </div>
+                            ${from !== 'cart' ? `
+                            <button onclick="luuVaoGioHang('${product.id}',
+                                                        '${product.name}',
+                                                        '${product.price}',
+                                                        '${product.image}')"
+                                    style="padding:15px;
+                                        background-color:#2980b9;
+                                        color:white;
+                                        border:none;
+                                        border-radius:5px;
+                                        font-weight:bold;
+                                        cursor:pointer;
+                                        font-size:16px;">
+                                ➕ THÊM VÀO GIỎ HÀNG
+                            </button>
+                            ` : ''}
+                    </div>
+                </div>
+            `;
+        } else {
+            // Nếu khách hàng lỡ gõ sai link (ví dụ ?id=99) thì báo lỗi
+            detailContent.innerHTML = "<h2 style='text-align:center; color:#e74c3c; margin-top: 50px;'>⚠️ KHÔNG TÌM THẤY SẢN PHẨM!</h2>";
+        }
+    </script>
+</body>
+</html>

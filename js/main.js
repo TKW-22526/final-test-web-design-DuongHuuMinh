@@ -1,49 +1,104 @@
 const productList = [
-    {id:"01", name: "iphone", price:"17.000.000vnđ", image:"assets/images/iphone.jpg", productLink:"product-detail.html"},
-    {id:"02", name: "Samsung", price:"20.000.000vnđ", image:"assets/images/samsung.jpg", productLink:"product-detail.html"},
-    {id:"03", name: "nokia", price:"350.000vnđ", image:"assets/images/nokia.jpg", productLink:"product-detail.html"},
-    {id:"04", name: "oppo", price:"4.000.000vnđ", image:"assets/images/oppo.jpg", productLink:"product-detail.html"}
+    // ================= DÒNG IPHONE (10 Sản phẩm) =================
+    {id:"01", name: "iPhone 15 Pro Max", price:"29.000.000vnđ", image:"assets/images/ipmax.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"02", name: "iPhone 15 Pro", price:"27.000.000vnđ", image:"assets/images/ippro.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"03", name: "iPhone 15", price:"20.000.000vnđ", image:"assets/images/ip15.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"04", name: "iPhone 14 Pro Max", price:"26.000.000vnđ", image:"assets/images/ip14max.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"05", name: "iPhone 14 Pro", price:"24.000.000vnđ", image:"assets/images/ip14pro.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"06", name: "iPhone 14", price:"18.000.000vnđ", image:"assets/images/ip14.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"07", name: "iPhone 13 Pro Max", price:"20.000.000vnđ", image:"assets/images/ip13max.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"08", name: "iPhone 13", price:"15.000.000vnđ", image:"assets/images/ip13.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"09", name: "iPhone 12", price:"10.000.000vnđ", image:"assets/images/ip12.jpg", productLink:"product-detail.html", brand: "iPhone"},
+    {id:"10", name: "iPhone 11", price:"7.000.000vnđ", image:"assets/images/ip11.jpg", productLink:"product-detail.html", brand: "iPhone"},
+
+    // ================= DÒNG SAMSUNG (10 Sản phẩm) =================
+    {id:"11", name: "Samsung Galaxy S24 Ultra", price:"30.000.000vnđ", image:"assets/images/samsung1.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"12", name: "Samsung Galaxy S24+", price:"25.000.000vnđ", image:"assets/images/samsung2.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"13", name: "Samsung Galaxy S24", price:"20.000.000vnđ", image:"assets/images/samsung3.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"14", name: "Samsung Galaxy Z Fold 5", price:"40.000.000vnđ", image:"assets/images/samsung4.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"15", name: "Samsung Galaxy Z Flip 5", price:"22.000.000vnđ", image:"assets/images/samsung5.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"16", name: "Samsung Galaxy S23 Ultra", price:"24.000.000vnđ", image:"assets/images/samsung6.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"17", name: "Samsung Galaxy A55 5G", price:"10.000.000vnđ", image:"assets/images/samsung7.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"18", name: "Samsung Galaxy A35 5G", price:"8.000.000vnđ", image:"assets/images/samsung8.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"19", name: "Samsung Galaxy M54", price:"9.000.000vnđ", image:"assets/images/samsung9.jpg", productLink:"product-detail.html", brand: "Samsung"},
+    {id:"20", name: "Samsung Galaxy S21 FE", price:"11.000.000vnđ", image:"assets/images/samsung10.jpg", productLink:"product-detail.html", brand: "Samsung"},
+
+    // ================= DÒNG NOKIA (10 Sản phẩm) =================
+    {id:"21", name: "Nokia 1280", price:"350.000vnđ", image:"assets/images/nokia1.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"22", name: "Nokia X30 5G", price:"10.000.000vnđ", image:"assets/images/nokia2.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"23", name: "Nokia G22", price:"3.500.000vnđ", image:"assets/images/nokia3.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"24", name: "Nokia C32", price:"3.000.000vnđ", image:"assets/images/nokia4.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"25", name: "Nokia G11 Plus", price:"2.500.000vnđ", image:"assets/images/nokia5.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"26", name: "Nokia C21 Plus", price:"2.000.000vnđ", image:"assets/images/nokia6.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"27", name: "Nokia 8210 4G", price:"1.500.000vnđ", image:"assets/images/nokia7.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"28", name: "Nokia 3310 (2017)", price:"1.000.000vnđ", image:"assets/images/nokia8.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"29", name: "Nokia 215 4G", price:"800.000vnđ", image:"assets/images/nokia9.jpg", productLink:"product-detail.html", brand: "Nokia"},
+    {id:"30", name: "Nokia 105 4G", price:"700.000vnđ", image:"assets/images/nokia10.jpg", productLink:"product-detail.html", brand: "Nokia"},
+
+    // ================= DÒNG OPPO (10 Sản phẩm) =================
+    {id:"31", name: "Oppo Find N3 Fold", price:"40.000.000vnđ", image:"assets/images/oppo1.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"32", name: "Oppo Find N3 Flip", price:"20.000.000vnđ", image:"assets/images/oppo2.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"33", name: "Oppo Reno 11 Pro 5G", price:"14.000.000vnđ", image:"assets/images/oppo3.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"34", name: "Oppo Reno 11 5G", price:"10.000.000vnđ", image:"assets/images/oppo4.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"35", name: "Oppo Reno 10 5G", price:"8.000.000vnđ", image:"assets/images/oppo5.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"36", name: "Oppo A98 5G", price:"8.500.000vnđ", image:"assets/images/oppo6.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"37", name: "Oppo A78", price:"6.500.000vnđ", image:"assets/images/oppo7.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"38", name: "Oppo A58", price:"5.500.000vnđ", image:"assets/images/oppo8.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"39", name: "Oppo A38", price:"4.000.000vnđ", image:"assets/images/oppo9.jpg", productLink:"product-detail.html", brand: "Oppo"},
+    {id:"40", name: "Oppo A18", price:"3.500.000vnđ", image:"assets/images/oppo10.jpg", productLink:"product-detail.html", brand: "Oppo"},
+
+    // ================= DÒNG XIAOMI (10 Sản phẩm) =================
+    {id:"41", name: "Xiaomi 14 Ultra", price:"32.990.000vnđ", image:"assets/images/xiaomi1.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"42", name: "Xiaomi 14", price:"22.990.000vnđ", image:"assets/images/xiaomi2.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"43", name: "Xiaomi 13T Pro", price:"15.990.000vnđ", image:"assets/images/xiaomi3.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"44", name: "Xiaomi 13T", price:"11.990.000vnđ", image:"assets/images/xiaomi4.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"45", name: "Redmi Note 13 Pro+ 5G", price:"10.490.000vnđ", image:"assets/images/xiaomi5.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"46", name: "Redmi Note 13 Pro", price:"7.490.000vnđ", image:"assets/images/xiaomi6.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"47", name: "Redmi 13", price:"4.290.000vnđ", image:"assets/images/xiaomi7.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"48", name: "Redmi 12", price:"3.490.000vnđ", image:"assets/images/xiaomi8.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"49", name: "Poco X6 Pro 5G", price:"8.490.000vnđ", image:"assets/images/xiaomi9.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+    {id:"50", name: "Poco M6 Pro", price:"5.490.000vnđ", image:"assets/images/xiaomi10.jpg", productLink:"product-detail.html", brand: "Xiaomi"},
+
+    // ================= DÒNG VIVO (10 Sản phẩm) =================
+    {id:"51", name: "Vivo X100 Pro 5G", price:"29.990.000vnđ", image:"assets/images/vivo1.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"52", name: "Vivo X100 5G", price:"21.990.000vnđ", image:"assets/images/vivo2.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"53", name: "Vivo V30 5G", price:"13.990.000vnđ", image:"assets/images/vivo3.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"54", name: "Vivo V30e 5G", price:"9.490.000vnđ", image:"assets/images/vivo4.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"55", name: "Vivo V29 5G", price:"11.490.000vnđ", image:"assets/images/vivo5.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"56", name: "Vivo V29e 5G", price:"8.490.000vnđ", image:"assets/images/vivo6.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"57", name: "Vivo Y100", price:"6.990.000vnđ", image:"assets/images/vivo7.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"58", name: "Vivo Y36", price:"5.490.000vnđ", image:"assets/images/vivo8.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"59", name: "Vivo Y17s", price:"3.490.000vnđ", image:"assets/images/vivo9.jpg", productLink:"product-detail.html", brand: "Vivo"},
+    {id:"60", name: "Vivo Y03", price:"2.790.000vnđ", image:"assets/images/vivo10.jpg", productLink:"product-detail.html", brand: "Vivo"},
 ];
 
 function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
-    // TẠO HỘP TO NGOÀI CÙNG
     const productItem = document.createElement("div");
     productItem.setAttribute("class", "productItem");
 
-    // LẮP RÁP KHUNG 1 (CHỨA ẢNH)
     const productDiv1 = document.createElement("div");
     productDiv1.setAttribute("class", "productDiv1");
-
     const productImage = document.createElement("img");
     productImage.setAttribute("src", linkAnh);
     productImage.setAttribute("alt", tenMay);
     productDiv1.appendChild(productImage);
 
-    // LẮP RÁP KHUNG 2
     const productDiv2 = document.createElement("div");
     productDiv2.setAttribute("class", "productDiv2");
-
     const productId = document.createElement("p"); 
-    const productIdText = document.createTextNode(maMay);
-    productId.appendChild(productIdText);
-
+    productId.appendChild(document.createTextNode("Mã: " + maMay));
     const productName = document.createElement("p");
-    const productNameText = document.createTextNode(tenMay);
-    productName.appendChild(productNameText);
-    
+    productName.appendChild(document.createTextNode(tenMay));
     const productPrice = document.createElement("p"); 
-    const productPriceText = document.createTextNode(giaTien);
-    productPrice.appendChild(productPriceText);
-
+    productPrice.appendChild(document.createTextNode(giaTien));
     const productLink = document.createElement("a");
-    const productLinkText = document.createTextNode("Xem chi tiết");
-    productLink.appendChild(productLinkText);
+    productLink.appendChild(document.createTextNode("Xem chi tiết"));
     
-    productLink.setAttribute("href", linkXemChiTiet + "?id=" + maMay);
-    
+    productLink.setAttribute(
+        "href",
+        "html/" + linkXemChiTiet + "?id=" + maMay
+    );
     productLink.setAttribute("target", "_blank");
-    productLink.style.display = "block";
-    productLink.style.marginBottom = "10px";
 
     productDiv2.appendChild(productName);
     productDiv2.appendChild(productPrice);
@@ -57,28 +112,27 @@ function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
     btnContainer.style.marginTop = "10px";
 
     const btnBuyNow = document.createElement("button");
-    const btnBuyNowText = document.createTextNode("Mua ngay");
-    btnBuyNow.appendChild(btnBuyNowText);
+    btnBuyNow.appendChild(document.createTextNode("Mua ngay"));
     btnBuyNow.style.padding = "8px";
-    btnBuyNow.style.backgroundColor = "#27ae60";
+    btnBuyNow.style.backgroundColor = "#e74c3c"; // Đồng màu đỏ cam
     btnBuyNow.style.color = "white";
     btnBuyNow.style.border = "none";
     btnBuyNow.style.borderRadius = "5px";
     btnBuyNow.style.cursor = "pointer";
+    btnBuyNow.style.fontWeight = "bold";
     btnBuyNow.style.flex = "1";
 
     const btnAddCart = document.createElement("button");
-    const btnAddCartText = document.createTextNode("Thêm giỏ hàng");
-    btnAddCart.appendChild(btnAddCartText);
+    btnAddCart.appendChild(document.createTextNode("Giỏ hàng"));
     btnAddCart.style.padding = "8px";
-    btnAddCart.style.backgroundColor = "#2980b9";
+    btnAddCart.style.backgroundColor = "#2c3e50"; // Màu navy cho nút phụ
     btnAddCart.style.color = "white";
     btnAddCart.style.border = "none";
     btnAddCart.style.borderRadius = "5px";
     btnAddCart.style.cursor = "pointer";
+    btnAddCart.style.fontWeight = "bold";
     btnAddCart.style.flex = "1";
 
-    // Lệnh lưu vào giỏ hàng
     btnAddCart.addEventListener("click", function() {
         luuVaoGioHang(maMay, tenMay, giaTien, linkAnh);
     });
@@ -87,14 +141,13 @@ function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
     btnContainer.appendChild(btnAddCart);
     productDiv2.appendChild(btnContainer);
 
-    // LẮP GHÉP TẤT CẢ VÀO HỘP TO
     productItem.appendChild(productDiv1);
     productItem.appendChild(productDiv2);
 
     return productItem;
 }
 
-// HÀM LƯU SẢN PHẨM VÀO LOCAL STORAGE
+// Tìm đến hàm này và thêm dòng capNhatSoLuongGioHang() ở cuối
 function luuVaoGioHang(id, name, price, image) {
     let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
     let sanPhamDaCo = gioHang.find(sp => sp.id === id);
@@ -104,14 +157,49 @@ function luuVaoGioHang(id, name, price, image) {
     } else {
         gioHang.push({ id: id, name: name, price: price, image: image, soLuong: 1 });
     }
-
     localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
     alert("Đã thêm " + name + " vào giỏ hàng thành công!");
+    
+    // THÊM DÒNG NÀY: Cập nhật số lượng trên giao diện ngay lập tức khi vừa thêm vào giỏ
+    capNhatSoLuongGioHang();
 }
 
-// HÀM XÓA SẠCH GIỎ HÀNG
 function xoaGioHang() {
     localStorage.removeItem("gioHangCuaMinh");
     alert("Đã xóa toàn bộ giỏ hàng!");
+    location.reload();
+}
+
+function xoaSanPham(id) {
+    let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
+    gioHang = gioHang.filter(sp => sp.id !== id);
+    localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
+    location.reload();
+}
+
+// ================= THÊM ĐOẠN NÀY VÀO DƯỚI CÙNG FILE MAIN.JS =================
+function capNhatSoLuongGioHang() {
+    const cartCountEl = document.getElementById('cart-count');
+    // Kiểm tra nếu trang hiện tại có thẻ hiển thị số lượng thì mới chạy
+    if (cartCountEl) {
+        let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
+        let tongSo = gioHang.reduce((tong, sp) => tong + sp.soLuong, 0);
+        cartCountEl.innerText = tongSo;
+    }
+}
+
+// Tự động chạy khi trang web vừa tải xong để hiển thị đúng số lượng ban đầu
+window.addEventListener('DOMContentLoaded', capNhatSoLuongGioHang);
+
+function xoaGioHang() {
+    localStorage.removeItem("gioHangCuaMinh");
+    alert("Đã xóa toàn bộ giỏ hàng!");
+    location.reload();
+}
+
+function xoaSanPham(id) {
+    let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
+    gioHang = gioHang.filter(sp => sp.id !== id);
+    localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
     location.reload();
 }
