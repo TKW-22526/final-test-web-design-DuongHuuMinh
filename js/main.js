@@ -122,6 +122,25 @@ function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
     btnBuyNow.style.fontWeight = "bold";
     btnBuyNow.style.flex = "1";
 
+    // --- SỰ KIỆN NÚT MUA NGAY ---
+    btnBuyNow.addEventListener("click", function() {
+        // 1. Thêm vào giỏ hàng ngầm
+        let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
+        let sanPhamDaCo = gioHang.find(sp => sp.id === maMay);
+
+        if (sanPhamDaCo) {
+            sanPhamDaCo.soLuong += 1; 
+        } else {
+            gioHang.push({ id: maMay, name: tenMay, price: giaTien, image: linkAnh, soLuong: 1 });
+        }
+        localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
+        capNhatSoLuongGioHang();
+
+        // 2. Thông báo và chuyển hướng thẳng sang trang giỏ hàng
+        alert("🎉 Đã thêm " + tenMay + " vào giỏ! Chuyển sang trang thanh toán...");
+        window.location.href = "html/cart.html";
+    });
+
     const btnAddCart = document.createElement("button");
     btnAddCart.appendChild(document.createTextNode("Giỏ hàng"));
     btnAddCart.style.padding = "8px";
@@ -147,7 +166,7 @@ function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
     return productItem;
 }
 
-// Tìm đến hàm này và thêm dòng capNhatSoLuongGioHang() ở cuối
+// Hàm Thêm vào giỏ hàng (chỉ báo thành công và ở lại trang)
 function luuVaoGioHang(id, name, price, image) {
     let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
     let sanPhamDaCo = gioHang.find(sp => sp.id === id);
@@ -160,7 +179,6 @@ function luuVaoGioHang(id, name, price, image) {
     localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
     alert("Đã thêm " + name + " vào giỏ hàng thành công!");
     
-    // THÊM DÒNG NÀY: Cập nhật số lượng trên giao diện ngay lập tức khi vừa thêm vào giỏ
     capNhatSoLuongGioHang();
 }
 
@@ -177,10 +195,9 @@ function xoaSanPham(id) {
     location.reload();
 }
 
-// ================= THÊM ĐOẠN NÀY VÀO DƯỚI CÙNG FILE MAIN.JS =================
+// Hàm cập nhật con số đếm trên Header
 function capNhatSoLuongGioHang() {
     const cartCountEl = document.getElementById('cart-count');
-    // Kiểm tra nếu trang hiện tại có thẻ hiển thị số lượng thì mới chạy
     if (cartCountEl) {
         let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
         let tongSo = gioHang.reduce((tong, sp) => tong + sp.soLuong, 0);
@@ -188,18 +205,5 @@ function capNhatSoLuongGioHang() {
     }
 }
 
-// Tự động chạy khi trang web vừa tải xong để hiển thị đúng số lượng ban đầu
+// Tự động cập nhật số lượng khi web vừa tải xong
 window.addEventListener('DOMContentLoaded', capNhatSoLuongGioHang);
-
-function xoaGioHang() {
-    localStorage.removeItem("gioHangCuaMinh");
-    alert("Đã xóa toàn bộ giỏ hàng!");
-    location.reload();
-}
-
-function xoaSanPham(id) {
-    let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
-    gioHang = gioHang.filter(sp => sp.id !== id);
-    localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
-    location.reload();
-}
