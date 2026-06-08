@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 "# Shop-Huu-Minh--T" 
-=======
 # Dự án kết thúc môn
 
 Đây là thư mục dự án kết thúc môn của sinh viên. Dự án được tổ chức theo cấu trúc rõ ràng nhằm phục vụ quá trình phát triển website, quản lý mã nguồn và nộp sản phẩm cuối kỳ.
