@@ -259,5 +259,131 @@ body {
     display: none; 
     animation: fadeEffect 1s ease-in-out; 
 }
+/* ================= CỤM NÚT HEADER & TÀI KHOẢN ================= */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
-/* Các phần từ .slide.active trở xuống bạn cứ GIỮ NGUYÊN nhé */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.login-btn {
+    color: white;
+    border: 1px solid #bdc3c7; /* Nút Đăng nhập viền mỏng */
+}
+
+.login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.register-btn {
+    background-color: #e74c3c; /* Nút Đăng ký màu đỏ cam nổi bật */
+    color: white;
+    border: 1px solid #e74c3c;
+}
+
+.register-btn:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+/* ================= GIAO DIỆN FORM ĐĂNG NHẬP / ĐĂNG KÝ ================= */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 20px;
+    background-color: #f4f7f6;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 450px;
+}
+
+.auth-card h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box; /* Tránh tràn viền */
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.2);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #1a252f;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.auth-links a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
