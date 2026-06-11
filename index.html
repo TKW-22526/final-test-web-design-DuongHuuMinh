@@ -10,9 +10,11 @@
 
     <header class="main-header">
         <div class="header-container">
-            <a href="index.html" class="logo-wrapper">
-                <img src="assets/images/logo-huu-minh.png" alt="Logo Shop Hữu Minh" class="logo-img">
-                <h5>Tận tâm - Thân thiện - Uy tín</h5>
+            <a href="index.html" class="logo">
+                <div style="display: flex; flex-direction: column;">
+                    <h1 style="color: white; margin: 0; font-size: 24px;">Hữu Minh<span style="color: #e74c3c;">.Shop</span></h1>
+                    <h5 style="color: #bdc3c7; margin: 2px 0 0 0; font-style: italic; font-weight: 500; font-size: 11px;">Tận tâm - Thân thiện - Uy tín</h5>
+                </div>
             </a>
 
             <div class="search-bar">
@@ -20,7 +22,9 @@
                 <button onclick="thucHienTimKiem()">🔍 Tìm</button>
             </div>
 
-            <div class="header-actions">
+           <div class="header-actions">
+                <button id="darkModeToggle" onclick="toggleDarkMode()">🌙</button>
+
                 <a href="html/cart.html" class="cart-btn">
                     🛒 Giỏ hàng <span id="cart-count" class="cart-count">0</span>
                 </a>
@@ -198,6 +202,6 @@
             }
         });
     </script>
-
+    <div id="toast-container"></div>
 </body>
 </html>

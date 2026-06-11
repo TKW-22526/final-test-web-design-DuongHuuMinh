@@ -177,7 +177,8 @@ function luuVaoGioHang(id, name, price, image) {
         gioHang.push({ id: id, name: name, price: price, image: image, soLuong: 1 });
     }
     localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
-    alert("Đã thêm " + name + " vào giỏ hàng thành công!");
+    // Dùng Toast thay cho alert
+    showToast("Đã thêm " + name + " vào giỏ!");
     
     capNhatSoLuongGioHang();
 }
@@ -207,3 +208,48 @@ function capNhatSoLuongGioHang() {
 
 // Tự động cập nhật số lượng khi web vừa tải xong
 window.addEventListener('DOMContentLoaded', capNhatSoLuongGioHang);
+// ================= LOGIC TOAST MESSAGE =================
+function showToast(message, isError = false) {
+    const toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) return; 
+
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    if (isError) toast.classList.add('error');
+
+    // Dùng emoji làm icon cho sinh động
+    const icon = isError ? '❌' : '✅';
+    toast.innerHTML = `<span style="font-size: 18px;">${icon}</span> <span>${message}</span>`;
+
+    toastContainer.appendChild(toast);
+
+    // Tự động mờ dần và xóa sau 3 giây (3000ms)
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    }, 3000);
+}
+
+// ================= LOGIC DARK MODE =================
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    // Lưu lựa chọn vào Local Storage
+    localStorage.setItem('chếĐộTối', isDark ? 'yes' : 'no');
+    
+    // Đổi icon mặt trăng / mặt trời
+    const toggleBtn = document.getElementById('darkModeToggle');
+    if (toggleBtn) toggleBtn.innerText = isDark ? '☀️' : '🌙';
+}
+
+// Tự động kiểm tra chế độ lúc tải trang
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('chếĐộTối') === 'yes') {
+        document.body.classList.add('dark-mode');
+        const toggleBtn = document.getElementById('darkModeToggle');
+        if(toggleBtn) toggleBtn.innerText = '☀️';
+    }
+});
