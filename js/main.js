@@ -72,9 +72,22 @@ const productList = [
     {id:"60", name: "Vivo Y03", price:"2.790.000vnđ", image:"assets/images/vivo10.jpg", productLink:"product-detail.html", brand: "Vivo"},
 ];
 
-function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
+    function taoSanPham(maMay, tenMay, giaTien, linkAnh, linkXemChiTiet) {
     const productItem = document.createElement("div");
     productItem.setAttribute("class", "productItem");
+
+    // ================= BỔ SUNG TÍNH NĂNG CLICK TOÀN KHUNG =================
+    productItem.style.cursor = "pointer"; // Đổi con trỏ chuột thành hình bàn tay
+    
+    productItem.addEventListener("click", function(event) {
+        // Nếu khách bấm trúng một cái nút (BUTTON) thì KHÔNG chuyển trang
+        if (event.target.tagName === 'BUTTON') {
+            return; 
+        }
+        
+        // Nếu bấm vào vùng trống, ảnh hoặc chữ thì mở trang chi tiết sang tab mới
+        window.open("html/" + linkXemChiTiet + "?id=" + maMay, "_blank");
+    });
 
     const productDiv1 = document.createElement("div");
     productDiv1.setAttribute("class", "productDiv1");

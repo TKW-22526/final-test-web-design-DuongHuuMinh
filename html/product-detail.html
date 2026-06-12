@@ -49,6 +49,19 @@
             border: 1px solid #e0e0e0;
         }
         .specs-box p { margin: 10px 0; font-size: 16px; color: #333; line-height: 1.5;}
+        /* CSS CHO CHỌN SỐ LƯỢNG VÀ NÚT MUA */
+        .qty-wrapper { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .qty-wrapper span { font-weight: bold; color: #2c3e50; font-size: 16px; }
+        .qty-control { display: flex; align-items: center; border: 1px solid #bdc3c7; border-radius: 6px; overflow: hidden; }
+        .qty-btn { width: 36px; height: 36px; background: #f4f7f6; border: none; font-size: 18px; font-weight: bold; color: #2c3e50; cursor: pointer; transition: 0.2s; }
+        .qty-btn:hover { background: #e0e0e0; }
+        .qty-input { width: 50px; height: 36px; text-align: center; border: none; border-left: 1px solid #bdc3c7; border-right: 1px solid #bdc3c7; font-size: 16px; font-weight: bold; color: #e74c3c; pointer-events: none; }
+        
+        .action-group { display: flex; gap: 15px; margin-top: 10px; }
+        .btn-add-cart { flex: 1; padding: 14px; background: #2c3e50; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; }
+        .btn-add-cart:hover { background: #1a252f; }
+        .btn-buy-now { flex: 1; padding: 14px; background: #e74c3c; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; }
+        .btn-buy-now:hover { background: #c0392b; } 
     </style>
 </head>
 <body style="background-color: #f4f7f6; padding: 20px; font-family: Arial, sans-serif;">
@@ -169,33 +182,68 @@
                         <p class="price">Giá: ${product.price}</p>
                         
                         <div class="specs-box">
-                            <p>🗓️ <b>Ngày sản xuất:</b> ${info.ngaySX}</p>
-                            <p>⚙️ <b>Cấu hình chi tiết:</b> ${info.cauHinh}</p>
-                            <p>📦 <b>Tình trạng:</b> Mới 100%, nguyên seal, chính hãng</p>
-                            <p>🛡️ <b>Bảo hành:</b> 12 tháng tại Shop Hữu Minh</p>
+                            <p><b>Ngày sản xuất:</b> ${info.ngaySX}</p>
+                            <p><b>Cấu hình chi tiết:</b> ${info.cauHinh}</p>
+                            <p><b>Tình trạng:</b> Mới 100%, nguyên seal, chính hãng</p>
+                            <p><b>Bảo hành:</b> 12 tháng tại Shop Hữu Minh</p>
                         </div>
                             ${from !== 'cart' ? `
-                            <button onclick="luuVaoGioHang('${product.id}',
-                                                        '${product.name}',
-                                                        '${product.price}',
-                                                        '${product.image}')"
-                                    style="padding:15px;
-                                        background-color:#2980b9;
-                                        color:white;
-                                        border:none;
-                                        border-radius:5px;
-                                        font-weight:bold;
-                                        cursor:pointer;
-                                        font-size:16px;">
-                                ➕ THÊM VÀO GIỎ HÀNG
-                            </button>
-                            ` : ''}
-                    </div>
+                                <div class="qty-wrapper">
+                                    <span>Số lượng:</span>
+                                    <div class="qty-control">
+                                        <button class="qty-btn" onclick="thayDoiSoLuong(-1)">-</button>
+                                        <input type="text" id="so-luong-input" class="qty-input" value="1" readonly>
+                                        <button class="qty-btn" onclick="thayDoiSoLuong(1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="action-group">
+                                    <button class="btn-add-cart" onclick="themVaoGioTuChiTiet('${product.id}', '${product.name}', '${product.price}', '${product.image}', false)">
+                                        🛒 THÊM VÀO GIỎ
+                                    </button>
+                                    <button class="btn-buy-now" onclick="themVaoGioTuChiTiet('${product.id}', '${product.name}', '${product.price}', '${product.image}', true)">
+                                        ⚡ MUA NGAY
+                                    </button>
+                                </div>
+                             ` : ''}
+                        </div>
                 </div>
             `;
         } else {
             // Nếu khách hàng lỡ gõ sai link (ví dụ ?id=99) thì báo lỗi
             detailContent.innerHTML = "<h2 style='text-align:center; color:#e74c3c; margin-top: 50px;'>⚠️ KHÔNG TÌM THẤY SẢN PHẨM!</h2>";
+        }
+        let currentQty = 1;
+
+        function thayDoiSoLuong(delta) {
+            currentQty += delta;
+            if (currentQty < 1) currentQty = 1; // Không cho phép âm hoặc bằng 0
+            document.getElementById('so-luong-input').value = currentQty;
+        }
+
+        function themVaoGioTuChiTiet(id, name, price, image, isBuyNow) {
+            let gioHang = JSON.parse(localStorage.getItem("gioHangCuaMinh")) || [];
+            let sanPhamDaCo = gioHang.find(sp => sp.id === id);
+
+            if (sanPhamDaCo) {
+                sanPhamDaCo.soLuong += currentQty; 
+            } else {
+                gioHang.push({ id: id, name: name, price: price, image: image, soLuong: currentQty });
+            }
+            localStorage.setItem("gioHangCuaMinh", JSON.stringify(gioHang));
+            
+            if (typeof capNhatSoLuongGioHang === "function") capNhatSoLuongGioHang();
+
+            if (isBuyNow) {
+                // Chuyển thẳng sang giỏ hàng nếu bấm Mua Ngay
+                window.location.href = "cart.html";
+            } else {
+                // Báo Toast Message nếu chỉ bấm Thêm vào giỏ
+                if (typeof showToast === "function") {
+                    showToast("Đã thêm " + currentQty + " máy " + name + " vào giỏ!");
+                } else {
+                    alert("Đã thêm " + currentQty + " máy " + name + " vào giỏ!");
+                }
+            }
         }
     </script>
 </body>
